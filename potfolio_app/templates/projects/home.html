@@ -1,0 +1,373 @@
+<!-- projects/templates/projects/home.html -->
+{% extends 'projects/base.html' %}
+{% block title %}Portfolio | Innovative Developer{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
+                    <br>
+        
+                    <h1 class="hero-title">Creating <span class="highlighted-text">innovative</span> digital experiences</h1>
+                    <p class="hero-text">A passionate full-stack developer dedicated to building modern web applications using innovative technologies, with the goal of simplifying processes and making the world a better place.</p>
+
+                </div>
+                <div class="col-lg-6" data-aos="fade-left" data-aos-delay="400">
+                    <div class="hero-image">
+                        <img src="/static/images/hero-image.svg" alt="Developer Illustration" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-shape">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,192L48,176C96,160,192,128,288,128C384,128,480,160,576,170.7C672,181,768,171,864,149.3C960,128,1056,96,1152,96C1248,96,1344,128,1392,144L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section py-5">
+        <div class="container">
+            <div class="section-header text-center" data-aos="fade-up">
+                <h6 class="subtitle">PORTFOLIO</h6>
+                <h2 class="section-title">Featured <span class="text-primary">Projects</span></h2>
+                <p class="section-description">Explore my latest work and innovative solutions</p>
+            </div>
+            
+            <div class="project-filter text-center mb-5" data-aos="fade-up" data-aos-delay="200">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="web">Web</button>
+                <button class="filter-btn" data-filter="mobile">Mobile</button>
+                <button class="filter-btn" data-filter="desktop">Desktop</button>
+            </div>
+            
+            <div class="row g-4 project-grid">
+                {% for project in projects %}
+                <div class="col-md-6 col-lg-4 project-item {% if project.slug == 'wifile-plus' %}desktop{% else %}web{% endif %}" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:200 }}">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}">
+                            <div class="project-overlay">
+                                <a href="{% url 'project_detail' project.slug %}" class="project-link">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                {% if project.external_url %}
+                                <a href="{{ project.external_url }}" class="project-link" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                {% endif %}
+                                {% if project.has_download %}
+                                <a href="{% url 'download_file' project.slug %}" class="project-link">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                {% if project.slug == 'wifile-plus' %}
+                                <span class="project-tag">Desktop App</span>
+                                <span class="project-tag">File Transfer</span>
+                                {% else %}
+                                <span class="project-tag">Web App</span>
+                                <span class="project-tag">Calculator</span>
+                                {% endif %}
+                            </div>
+                            <h3 class="project-title">{{ project.title }}</h3>
+                            <p class="project-description">{{ project.short_description }}</p>
+                            <a href="{% url 'project_detail' project.slug %}" class="project-more">
+                                Learn More <i class="fas fa-long-arrow-alt-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section py-5 bg-light">
+        <div class="container">
+            <div class="section-header text-center" data-aos="fade-up">
+                <h6 class="subtitle">EXPERTISE</h6>
+                <h2 class="section-title">Technical <span class="text-primary">Skills</span></h2>
+                <p class="section-description">Technologies I work with to bring ideas to life</p>
+            </div>
+            
+            <div class="row g-4 mt-4">
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h4 class="skill-title">Frontend</h4>
+                        <ul class="skill-list">
+                            <li>HTML5</li>
+                            <li>CSS3</li>
+                            <li>Bootstrap, Tailwind</li>
+                            <li>JavaScript</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h4 class="skill-title">Backend</h4>
+                        <ul class="skill-list">
+                            <li>Python, Django,Flask</li>
+                            <li>RESTful APIs</li>
+                            <li>SQL</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h4 class="skill-title">Database</h4>
+                        <ul class="skill-list">
+                            <li>PostgreSQL, MySQL</li>
+                            <li>Redis</li>
+                            <li>Database Design</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h4 class="skill-title">DevOps</h4>
+                        <ul class="skill-list">
+                            <li>Git, GitHub</li>
+                            <li>Docker, CI/CD</li>
+                            <li>AWS, Heroku</li>
+                            <li>Linux</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="about-section py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-4 mb-lg-0" data-aos="fade-right">
+                    <div class="about-image">
+                        <img src="/static/images/profile.png" alt="Developer Profile" class="img-fluid rounded-3">
+                        <div class="experience-badge">
+                            <span class="number">2</span>
+                            <span class="text">Years<br>Experience</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-7" data-aos="fade-left">
+                    <div class="section-header mb-4">
+                        <h6 class="subtitle">ABOUT ME</h6>
+                        <h2 class="section-title">Professional <span class="text-primary">Developer</span></h2>
+                    </div>
+                    
+                    <p class="about-text">I'm a passionate full-stack developer with expertise in creating innovative, user-friendly applications. With 5 years of experience in software development, I've worked on a variety of projects from simple web applications to complex enterprise solutions.</p>
+                    <div class="row g-4 mt-4 achievement-counters">
+                        <div class="col-6 col-md-3">
+                            <div class="counter-item">
+                                <h3 class="counter-number"><span class="counter" data-count="5">0</span>+</h3>
+                                <p class="counter-text">Projects Completed</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="counter-item">
+                                <h3 class="counter-number"><span class="counter" data-count="5">0</span>+</h3>
+                                <p class="counter-text">Happy Clients</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="counter-item">
+                                <h3 class="counter-number"><span class="counter" data-count="2">0</span>+</h3>
+                                <p class="counter-text">Years Experience</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="counter-item">
+                                <h3 class="counter-number"><span class="counter" data-count="10">0</span>+</h3>
+                                <p class="counter-text">Technologies</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <a href="#contact" class="btn btn-primary rounded-pill px-4 me-3">Contact Me</a>
+                        <a href="#contact" class="btn btn-outline-primary rounded-pill px-4" download>Download CV</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section py-5 bg-light">
+        <div class="container">
+            <div class="section-header text-center" data-aos="fade-up">
+                <h6 class="subtitle">GET IN TOUCH</h6>
+                <h2 class="section-title">Let's <span class="text-primary">Connect</span></h2>
+                <p class="section-description">Have a project in mind? Let's discuss how I can help</p>
+            </div>
+            
+            <div class="row g-4 mt-4">
+                <div class="col-lg-5" data-aos="fade-right">
+                    <div class="contact-info">
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-info-text">
+                                <h5>Location</h5>
+                                <p>Ubungo, Dar, Tanzania</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-info-text">
+                                <h5>Email</h5>
+                                <p>imancharlse@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-info-text">
+                                <h5>Phone</h5>
+                                <p>+255 614 021 404</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links mt-4">
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-7" data-aos="fade-left">
+                    <div class="contact-form-wrapper">
+                        <form class="contact-form" method="POST" action="">
+                            {% csrf_token %}
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+                                        <label for="name">Your Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required>
+                                        <label for="email">Your Email</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
+                                        <label for="subject">Subject</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" id="message" name="message" placeholder="Your Message" style="height: 150px" required></textarea>
+                                        <label for="message">Your Message</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5">Send Message</button>
+                                </div>
+                            </div>
+                        </form> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="testimonials-section py-5">
+        <div class="container">
+            <div class="section-header text-center" data-aos="fade-up">
+                <h6 class="subtitle">TESTIMONIALS</h6>
+                <h2 class="section-title">Client <span class="text-primary">Feedback</span></h2>
+                <p class="section-description">What people say about my work and services</p>
+            </div>
+            
+            <div class="testimonial-slider" data-aos="fade-up" data-aos-delay="200">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <p>"An exceptional developer who arlways deliver beyond expectations. The applications are robust, user-friendly, and exactly what we needed."</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="testimonial-image">
+                                    <img src="/static/images/testimonial1.jpg" alt="Client 1">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h5>Jackline Charles</h5>
+                                    <p>CEO, TechCorp</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <p>"Working with this developer was a pleasure. They understood our requirements perfectly and delivered a high-quality solution on time."</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="testimonial-image">
+                                    <img src="/static/images/testimonial2.jpg" alt="Client 2">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h5>Ronaldo Nyimbo</h5>
+                                    <p> Innovation Labs</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="testimonial-card">
+                            <div class="testimonial-content">
+                                <p>"Incredibly talented and dedicated. The attention to detail and problem-solving skills are outstanding. Highly recommended!"</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="testimonial-image">
+                                    <img src="/static/images/testimonial3.jpg" alt="Client 3">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h5>Fiona Steven</h5>
+                                    <p>CEO, LawFirm</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

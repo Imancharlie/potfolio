@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <!-- Definitions -->
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F2027" />
+      <stop offset="50%" stop-color="#203A43" />
+      <stop offset="100%" stop-color="#2C5364" />
+    </linearGradient>
+    
+    <!-- Code pattern -->
+    <pattern id="codePattern" width="300" height="300" patternUnits="userSpaceOnUse">
+      <text x="10" y="20" font-family="monospace" font-size="10" fill="#ffffff" opacity="0.1">function init() {</text>
+      <text x="20" y="35" font-family="monospace" font-size="10" fill="#ffffff" opacity="0.1">  return new Promise((resolve) => {</text>
+      <text x="30" y="50" font-family="monospace" font-size="10" fill="#ffffff" opacity="0.1">    const data = fetchAPI();</text>
+      <text x="30" y="65" font-family="monospace" font-size="10" fill="#ffffff" opacity="0.1">    if (data) {</text>
+      <text x="40" y="80" font-family="monospace" font-size="10" fill="#ffffff" opacity="0.1">      resolve(transform(data));</text>
+      <text x="30" y="95" font-family="monospace" font-size="10" fill="#ffffff" opacity="0.1">    }</text>
+      <text x="20" y="110" font-family="monospace" font-size="10" fill="#ffffff" opacity="0.1">  });</text>
+      <text x="10" y="125" font-family="monospace" font-size="10" fill="#ffffff" opacity="0.1">}</text>
+      <text x="10" y="150" font-family="monospace" font-size="10" fill="#ffffff" opacity="0.1">const render = (component) => {</text>
+      <text x="20" y="165" font-family="monospace" font-size="10" fill="#ffffff" opacity="0.1">  document.body.appendChild(component);</text>
+      <text x="10" y="180" font-family="monospace" font-size="10" fill="#ffffff" opacity="0.1">};</text>
+      <text x="10" y="205" font-family="monospace" font-size="10" fill="#ffffff" opacity="0.1">class DataService {</text>
+      <text x="20" y="220" font-family="monospace" font-size="10" fill="#ffffff" opacity="0.1">  constructor() {</text>
+      <text x="30" y="235" font-family="monospace" font-size="10" fill="#ffffff" opacity="0.1">    this.cache = new Map();</text>
+      <text x="20" y="250" font-family="monospace" font-size="10" fill="#ffffff" opacity="0.1">  }</text>
+      <text x="10" y="265" font-family="monospace" font-size="10" fill="#ffffff" opacity="0.1">}</text>
+    </pattern>
+    
+    <!-- Particle glow -->
+    <filter id="particleGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <!-- Circuit lines -->
+    <linearGradient id="circuitGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4facfe" />
+      <stop offset="100%" stop-color="#00f2fe" />
+    </linearGradient>
+    
+    <!-- Animation paths -->
+    <path id="dataPath1" d="M100,250 C200,150 300,350 400,250 S500,150 600,250 S700,350 800,250" />
+    <path id="dataPath2" d="M0,300 C100,200 200,400 300,300 S400,200 500,300 S600,400 700,300" />
+    
+    <!-- Clip paths -->
+    <clipPath id="hexClip">
+      <polygon points="400,100 550,175 550,325 400,400 250,325 250,175" />
+    </clipPath>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bgGradient)" />
+  <rect width="800" height="500" fill="url(#codePattern)" />
+  
+  <!-- Abstract circuit board design -->
+  <g opacity="0.6">
+    <path d="M50,100 L150,100 L150,200 L250,200 L250,300 L350,300 L350,400" stroke="url(#circuitGradient)" stroke-width="2" fill="none" />
+    <path d="M750,100 L650,100 L650,200 L550,200 L550,300 L450,300 L450,400" stroke="url(#circuitGradient)" stroke-width="2" fill="none" />
+    <path d="M100,50 L100,150 L200,150 L200,250 L300,250 L300,350 L400,350" stroke="url(#circuitGradient)" stroke-width="2" fill="none" />
+    <path d="M700,50 L700,150 L600,150 L600,250 L500,250 L500,350 L400,350" stroke="url(#circuitGradient)" stroke-width="2" fill="none" />
+    
+    <!-- Circuit nodes -->
+    <circle cx="150" cy="100" r="5" fill="#4facfe" filter="url(#particleGlow)" />
+    <circle cx="250" cy="200" r="5" fill="#4facfe" filter="url(#particleGlow)" />
+    <circle cx="350" cy="300" r="5" fill="#4facfe" filter="url(#particleGlow)" />
+    <circle cx="650" cy="100" r="5" fill="#4facfe" filter="url(#particleGlow)" />
+    <circle cx="550" cy="200" r="5" fill="#4facfe" filter="url(#particleGlow)" />
+    <circle cx="450" cy="300" r="5" fill="#4facfe" filter="url(#particleGlow)" />
+    <circle cx="100" cy="150" r="5" fill="#4facfe" filter="url(#particleGlow)" />
+    <circle cx="200" cy="150" r="5" fill="#4facfe" filter="url(#particleGlow)" />
+    <circle cx="300" cy="250" r="5" fill="#4facfe" filter="url(#particleGlow)" />
+    <circle cx="700" cy="150" r="5" fill="#4facfe" filter="url(#particleGlow)" />
+    <circle cx="600" cy="150" r="5" fill="#4facfe" filter="url(#particleGlow)" />
+    <circle cx="500" cy="250" r="5" fill="#4facfe" filter="url(#particleGlow)" />
+    <circle cx="400" cy="350" r="8" fill="#4facfe" filter="url(#particleGlow)" />
+  </g>
+  
+  <!-- Data visualization elements -->
+  <g opacity="0.8">
+    <!-- Central hexagon with clip path -->
+    <g clip-path="url(#hexClip)">
+      <rect x="250" y="100" width="300" height="300" fill="#203A43" opacity="0.6" />
+      <circle cx="400" cy="250" r="120" fill="#2C5364" opacity="0.7" />
+      <circle cx="400" cy="250" r="80" fill="#0F2027" opacity="0.6" />
+      
+      <!-- Binary data streams -->
+      <text font-family="monospace" font-size="12" fill="#4facfe" opacity="0.8">
+        <textPath href="#dataPath1">10110010 01100101 11001010 10010110 00101101 11001010 10010110</textPath>
+      </text>
+      <text font-family="monospace" font-size="12" fill="#4facfe" opacity="0.8">
+        <textPath href="#dataPath2">01001101 10110010 10010110 01001101 10110010 10010110 01001101</textPath>
+      </text>
+    </g>
+    
+    <!-- Hexagon outline -->
+    <polygon points="400,100 550,175 550,325 400,400 250,325 250,175" stroke="#4facfe" stroke-width="3" fill="none" />
+  </g>
+  
+  <!-- Dynamic particles -->
+  <g>
+    <circle cx="200" cy="150" r="3" fill="#ffffff" opacity="0.8" filter="url(#particleGlow)">
+      <animate attributeName="cy" from="150" to="350" dur="4s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.8;0.2;0.8" dur="4s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="600" cy="350" r="3" fill="#ffffff" opacity="0.8" filter="url(#particleGlow)">
+      <animate attributeName="cy" from="350" to="150" dur="5s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.8;0.2;0.8" dur="5s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="300" cy="200" r="3" fill="#ffffff" opacity="0.8" filter="url(#particleGlow)">
+      <animate attributeName="cx" from="300" to="500" dur="6s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.8;0.2;0.8" dur="6s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="500" cy="300" r="3" fill="#ffffff" opacity="0.8" filter="url(#particleGlow)">
+      <animate attributeName="cx" from="500" to="300" dur="7s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.8;0.2;0.8" dur="7s" repeatCount="indefinite" />
+    </circle>
+  </g>
+  
+  <!-- Developer branding -->
+  <g>
+    <text x="400" y="460" font-family="'Courier New', monospace" font-size="24" font-weight="bold" text-anchor="middle" fill="#ffffff">SOFTWARE DEVELOPER</text>
+    <text x="400" y="485" font-family="'Courier New', monospace" font-size="14" text-anchor="middle" fill="#4facfe">CODE • CREATE • INNOVATE</text>
+  </g>
+  
+  <!-- Animated focus ring around central element -->
+  <circle cx="400" cy="250" r="150" stroke="#4facfe" stroke-width="2" fill="none" opacity="0.5">
+    <animate attributeName="r" values="150;155;150" dur="3s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.5;0.8;0.5" dur="3s" repeatCount="indefinite" />
+  </circle>
+</svg>

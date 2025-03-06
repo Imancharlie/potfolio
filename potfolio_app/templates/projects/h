@@ -1,0 +1,6 @@
+
+git init  # Initialize Git if not done before
+git remote add origin https://github.com/Imancharlie/potfolio.git
+git add .
+git commit -m "Initial commit"
+git push -u origin main  
