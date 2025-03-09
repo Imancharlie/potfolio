@@ -1,4 +1,3 @@
-<!-- projects/templates/projects/project_detail.html -->
 {% extends 'projects/base.html' %}
 
 {% block title %}{{ project.title }} | Developer Portfolio{% endblock %}
@@ -6,7 +5,8 @@
 {% block extra_css %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 <style>
-
+  /* Existing styles unchanged, only adding where needed */
+  
   .project-header {
     background: linear-gradient(135deg,#0F2027 0%,rgb(31, 60, 109) 100%);
     color: white;
@@ -106,6 +106,26 @@
     padding-top: 2rem;
     border-top: 1px solid #eee;
   }
+
+  .project-gallery .gallery-item {
+    position: relative;
+    overflow: hidden;
+  }
+  .gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+  .gallery-item:hover .gallery-caption {
+    transform: translateY(0);
+  }
 </style>
 {% endblock %}
 
@@ -128,15 +148,9 @@
                     <span><i class="far fa-clock me-1"></i> Last updated: {{ project.updated_at|date:"F j, Y" }}</span>
                 </div>
                 <div class="project-tags mt-3">
-                    {% if project.slug == 'wifile-plus' %}
-                        <span class="project-tag">Desktop App</span>
-                        <span class="project-tag">File Transfer</span>
-                        <span class="project-tag">Cross-platform</span>
-                    {% else %}
-                        <span class="project-tag">Web App</span>
-                        <span class="project-tag">Calculator</span>
-                        <span class="project-tag">Mathematics</span>
-                    {% endif %}
+                    {% for tag in project.get_tags_list %}
+                        <span class="project-tag">{{ tag }}</span>
+                    {% endfor %}
                 </div>
             </div>
             <div class="col-lg-4 text-lg-end" data-aos="fade-left" data-aos-delay="200">
@@ -164,71 +178,35 @@
                 <!-- Project Gallery -->
                 <div class="project-gallery mb-5">
                     <div class="row g-3">
-                        <div class="col-12">
+                        <div class="col-12 gallery-item">
                             <a href="{{ project.thumbnail.url }}" data-lightbox="project-gallery" data-title="{{ project.title }}">
                                 <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}" class="img-fluid rounded-3 shadow">
+                                <div class="gallery-caption">Main Thumbnail</div>
                             </a>
                         </div>
-                        {% if project.slug == 'wifile-plus' %}
-                            <div class="col-md-4">
-                                <a href="/static/images/wifile-screenshot1.jpg" data-lightbox="project-gallery" data-title="WiFile+ Main Interface">
-                                    <img src="/static/images/wifile-screenshot1.jpg" alt="WiFile+ Screenshot 1" class="img-fluid rounded-3 shadow">
+                        {% for media in project.media.all %}
+                            <div class="col-md-4 gallery-item">
+                                <a href="{{ media.image.url }}" data-lightbox="project-gallery" data-title="{{ media.caption }}">
+                                    <img src="{{ media.image.url }}" alt="{{ media.caption }}" class="img-fluid rounded-3 shadow">
+                                    <div class="gallery-caption">{{ media.caption }}</div>
                                 </a>
                             </div>
-                            <div class="col-md-4">
-                                <a href="/static/images/wifile-screenshot2.jpg" data-lightbox="project-gallery" data-title="WiFile+ File Transfer">
-                                    <img src="/static/images/wifile-screenshot2.jpg" alt="WiFile+ Screenshot 2" class="img-fluid rounded-3 shadow">
-                                </a>
-                            </div>
-                            <div class="col-md-4">
-                                <a href="/static/images/wifile-screenshot3.jpg" data-lightbox="project-gallery" data-title="WiFile+ Settings">
-                                    <img src="/static/images/wifile-screenshot3.jpg" alt="WiFile+ Screenshot 3" class="img-fluid rounded-3 shadow">
-                                </a>
-                            </div>
-                        {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
-                
+
                 <!-- Project Description -->
                 <div class="project-description mb-5">
                     {{ project.description|safe }}
-                    
-                    <h2>Key Features</h2>
-                    <ul class="feature-list">
-                        {% if project.slug == 'wifile-plus' %}
-                            <li>Fast and secure wireless file transfer between devices</li>
-                            <li>Works across different operating systems (Windows, macOS, Linux)</li>
-                            <li>No internet connection required - creates local network</li>
-                            <li>Simple and intuitive user interface</li>
-                            <li>End-to-end encryption for all transfers</li>
-                        {% else %}
-                            <li>Advanced and very fast Calculation</li>
-                            <li>Staff site for easy Management</li>
-                            <li>Adding New university,programs,Academic Years Through uploading CSV/Excel file </li>
-                            <li>Responsive design for all devices</li>
-                            <li>24Hrs support team to guide,help and solve Challenges together</li>
-                            <li>Report Challenges feature in the system and User participation on improving and advancing to reach more Programs with high Acuracy</li>
-                        {% endif %}
-                    </ul>
-                    
+
                     <h2>Technologies Used</h2>
                     <div class="tech-stack mb-4">
-                        {% if project.slug == 'wifile-plus' %}
-                            <span class="tech-badge">Django</span>
-                            <span class="tech-badge">HTML/CSS</span>
-                            <span class="tech-badge">WebSockets</span>
-                            <span class="tech-badge">JavaScript</span>
-                        {% else %}
-                            <span class="tech-badge">Django</span>
-                            <span class="tech-badge">Python</span>
-                            <span class="tech-badge">HTML</span>
-                            <span class="tech-badge">JavaScript</span>
-                            <span class="tech-badge">CSS</span>
-                        {% endif %}
-                        
+                        {% for tech in project.get_technologies_list %}
+                            <span class="tech-badge">{{ tech }}</span>
+                        {% endfor %}
                     </div>
                 </div>
-                
+
                 <!-- Project Navigation -->
                 <div class="project-navigation">
                     <div class="row">
@@ -251,7 +229,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
                 <div class="project-details-card">
                     <div class="project-details-header">
@@ -260,11 +238,7 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex justify-content-between">
                             <strong>Project Type</strong>
-                            {% if project.slug == 'wifile-plus' %}
-                                <span class="badge bg-primary">Desktop App</span>
-                            {% else %}
-                                <span class="badge bg-primary">Web App</span>
-                            {% endif %}
+                            <span class="badge bg-primary">{{ project.project_type|title }}</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
                             <strong>Created</strong>
@@ -276,53 +250,20 @@
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
                             <strong>Status</strong>
-                            <span class="badge bg-success">Completed</span>
+                            <span class="badge {% if project.status == 'completed' %}bg-success{% elif project.status == 'in_progress' %}bg-warning{% else %}bg-secondary{% endif %}">{{ project.status|title }}</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
                             <strong>Version</strong>
-                            {% if project.slug == 'wifile-plus' %}
-                                <span>1.0</span>
-                            {% else %}
-                                <span>2.0</span>
-                            {% endif %}
+                            <span>{{ project.version }}</span>
                         </li>
                     </ul>
                 </div>
-                <!-- Related Projects -->
+                <!-- Related Projects (Dynamic implementation could be added later) -->
                 <div class="related-projects mt-4">
                     <h4 class="mb-3">Related Projects</h4>
                     <div class="list-group">
-                        {% if project.slug == 'wifile-plus' %}
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h6 class="mb-1">Data Sync Pro</h6>
-                                    <small class="text-muted">Web App</small>
-                                </div>
-                                <small class="text-muted">Cloud synchronization solution</small>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h6 class="mb-1">SecureShare</h6>
-                                    <small class="text-muted">Mobile App</small>
-                                </div>
-                                <small class="text-muted">Encrypted file sharing</small>
-                            </a>
-                        {% else %}
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h6 class="mb-1">Graph Visualizer</h6>
-                                    <small class="text-muted">Web App</small>
-                                </div>
-                                <small class="text-muted">Mathematical function plotting</small>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h6 class="mb-1">Formula Reference</h6>
-                                    <small class="text-muted">Mobile App</small>
-                                </div>
-                                <small class="text-muted">Mathematics formula database</small>
-                            </a>
-                        {% endif %}
+                        <!-- Placeholder; could query similar projects by tags -->
+                        <p class="text-muted">More projects coming soon!</p>
                     </div>
                 </div>
             </div>
@@ -344,14 +285,11 @@
 {% block extra_js %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 <script>
-    // Initialize lightbox
     lightbox.option({
         'resizeDuration': 200,
         'wrapAround': true,
         'fadeDuration': 300
     });
-    
-    // Initialize AOS (Animate On Scroll)
     AOS.init({
         duration: 800,
         easing: 'ease-in-out',
